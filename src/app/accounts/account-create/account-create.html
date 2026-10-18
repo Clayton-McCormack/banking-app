@@ -1,1 +1,130 @@
-<p>account-create works!</p>
+<div class="row g-4">
+  <!-- Create account form -->
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h4 mb-3">Create an Account</h2>
+
+        @if (successMessage()) {
+          <div class="alert alert-success" role="status">{{ successMessage() }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+          <!-- Account name -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Account name</label>
+            <input
+              id="name"
+              type="text"
+              class="form-control"
+              formControlName="name"
+              maxlength="30"
+              [class.is-invalid]="showError('name')" />
+            @if (showError('name')) {
+              <div class="invalid-feedback">
+                @if (form.controls.name.hasError('required')) {
+                  Account name is required.
+                } @else if (form.controls.name.hasError('minlength')) {
+                  Account name must be at least 2 characters.
+                } @else if (form.controls.name.hasError('maxlength')) {
+                  Account name can't be longer than 30 characters.
+                } @else {
+                  Account name can't be only spaces.
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Account type -->
+          <fieldset class="mb-3">
+            <legend class="form-label fs-6">Account type</legend>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="typeChequing"
+                     value="Chequing" formControlName="accountType" />
+              <label class="form-check-label" for="typeChequing">Chequing</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="typeSavings"
+                     value="Savings" formControlName="accountType" />
+              <label class="form-check-label" for="typeSavings">Savings</label>
+            </div>
+            @if (showError('accountType')) {
+              <div class="text-danger small mt-1">Please choose an account type.</div>
+            }
+          </fieldset>
+
+          <!-- Initial balance -->
+          <div class="mb-4">
+            <label for="initialBalance" class="form-label">Initial balance ($)</label>
+            <input
+              id="initialBalance"
+              type="number"
+              min="0.01"
+              step="0.01"
+              class="form-control"
+              formControlName="initialBalance"
+              [class.is-invalid]="showError('initialBalance')" />
+            @if (showError('initialBalance')) {
+              <div class="invalid-feedback">
+                @if (form.controls.initialBalance.hasError('required')) {
+                  Initial balance is required.
+                } @else if (form.controls.initialBalance.hasError('min')) {
+                  Initial balance must be greater than $0.
+                } @else {
+                  Use at most 2 decimal places.
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Button only appears once a type is chosen, styled by that type -->
+          @if (accountType(); as type) {
+            <app-button
+              type="submit"
+              [accountType]="type"
+              [label]="'Create ' + type + ' Account'" />
+          } @else {
+            <p class="text-muted small mb-0">Choose an account type to continue.</p>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Existing accounts -->
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h4 mb-3">Your Accounts</h2>
+        @if (accounts().length === 0) {
+          <p class="text-muted mb-0">No accounts yet. Create one to get started.</p>
+        } @else {
+          <table class="table table-sm align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="text-end">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (account of accounts(); track account.id) {
+                <tr>
+                  <td>{{ account.name }}</td>
+                  <td>
+                    <span class="badge"
+                          [class.text-bg-primary]="account.type === 'Chequing'"
+                          [class.text-bg-success]="account.type === 'Savings'">
+                      {{ account.type }}
+                    </span>
+                  </td>
+                  <td class="text-end">{{ account.balance | currency: 'CAD' : 'symbol-narrow' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </div>
+    </div>
+  </div>
+</div>
