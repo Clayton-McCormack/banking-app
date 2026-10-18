@@ -1,1 +1,7 @@
-<p>button works!</p>
+<button
+  [type]="type()"
+  [class]="buttonClass()"
+  [disabled]="disabled()"
+  (click)="clicked.emit()">
+  {{ label() }}
+</button>
