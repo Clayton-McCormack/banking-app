@@ -19,7 +19,7 @@ A simple banking web application built with Angular for the BrainRidge Consultin
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 22 or later (developed with Node 24)
+- [Node.js](https://nodejs.org/) 24.15 or later (22.22.3+ also works). Developed with Node 24.21.
 - npm (included with Node.js)
 
 The Angular CLI does not need to be installed globally. The commands below use the project's local copy through `npm` and `npx`.
