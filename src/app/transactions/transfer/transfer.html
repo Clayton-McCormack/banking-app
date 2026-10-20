@@ -25,7 +25,7 @@
                       [class.is-invalid]="showError('fromAccountId')">
                 <option [ngValue]="null" disabled>Select an account</option>
                 @for (account of accounts(); track account.id) {
-                  <option [ngValue]="account.id">{{ account.name }} ({{ account.type }})</option>
+                  <option [ngValue]="account.id">#{{ account.id }} {{ account.name }} ({{ account.type }})</option>
                 }
               </select>
               @if (showError('fromAccountId')) {
@@ -45,7 +45,7 @@
                       [class.is-invalid]="showError('toAccountId') || sameAccountError()">
                 <option [ngValue]="null" disabled>Select an account</option>
                 @for (account of accounts(); track account.id) {
-                  <option [ngValue]="account.id">{{ account.name }} ({{ account.type }})</option>
+                  <option [ngValue]="account.id">#{{ account.id }} {{ account.name }} ({{ account.type }})</option>
                 }
               </select>
               @if (showError('toAccountId')) {

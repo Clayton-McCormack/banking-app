@@ -13,11 +13,11 @@
           <label for="account" class="form-label">Account</label>
           <select id="account" class="form-select" [(ngModel)]="selectedAccountId">
             @for (account of accounts(); track account.id) {
-              <option [ngValue]="account.id">{{ account.name }} ({{ account.type }})</option>
+              <option [ngValue]="account.id">#{{ account.id }} {{ account.name }} ({{ account.type }})</option>
             }
           </select>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <label for="search" class="form-label">Search</label>
           <input id="search" type="search" class="form-control"
                  placeholder="Description, type or amount"
@@ -31,7 +31,7 @@
             }
           </select>
         </div>
-        <div class="col-md-1 d-flex align-items-end">
+        <div class="col-md-2 d-flex align-items-end">
           <button type="button" class="btn btn-outline-secondary w-100" (click)="clearFilters()">Clear</button>
         </div>
       </div>

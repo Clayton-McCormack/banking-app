@@ -102,6 +102,7 @@
           <table class="table table-sm align-middle mb-0">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Name</th>
                 <th>Type</th>
                 <th class="text-end">Balance</th>
@@ -110,6 +111,7 @@
             <tbody>
               @for (account of accounts(); track account.id) {
                 <tr>
+                  <td>{{ account.id }}</td>
                   <td>{{ account.name }}</td>
                   <td>
                     <span class="badge"
