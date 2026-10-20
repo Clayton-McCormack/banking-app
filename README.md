@@ -90,7 +90,7 @@ src/app/
 - **Two layers of validation:** Forms validate input for the user, and the service checks the same rules again so invalid data can never be saved.
 - **Cross-field validators:** "Insufficient funds" and "same account" compare more than one field, so they are form-level validators on the transfer form.
 - **Money rounding:** Balances are rounded to cents after every calculation to avoid floating-point errors (for example, 0.3 - 0.1).
-- **Two-way data binding:** The guidelines mention two-way binding for updating balances, while the forms are required to use `FormBuilder`. Angular advises against mixing `ngModel` into Reactive Forms, so the forms use `FormBuilder`, balances update across every page automatically through the shared service, and `[(ngModel)]` is used on the history page's account selector, search box and type filter.
+- **Two-way data binding:** The guidelines mention two-way binding for updating balances, while the forms are required to use `FormBuilder`. Angular deprecated using `ngModel` with reactive form directives in v6, so the forms use `FormBuilder`, balances update across every page automatically through the shared service, and `[(ngModel)]` two-way binding is used on the history page's account selector, search box and type filter.
 
 ## Assumptions
 
